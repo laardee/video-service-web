@@ -62,7 +62,7 @@ const refreshContent = () => {
 };
 
 const insertSessionToLocalStorage = (data) => {
-  if(data !== null) {
+  if (data) {
     localStorage.setItem('video-session', JSON.stringify(data));
     refreshContent();
   }
@@ -77,7 +77,7 @@ const refreshMetadata = (session) =>
 
 const getMetadata = (session) => {
   if (session) {
-   return fetch(`${api}/metadata/${session}`)
+    return fetch(`${api}/metadata/${session}`)
       .then(response => response.json())
       .then((data) => {
         if (data.status === 0) {
@@ -126,3 +126,4 @@ $(() => {
         .then(console.log);
     });
 });
+
