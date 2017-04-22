@@ -35,6 +35,9 @@ h1 {
   font-size: 1.2em;
   margin: 5px; }
 
+p {
+  margin: 5px; }
+
 .title > div,
 .header > div,
 .content > div,

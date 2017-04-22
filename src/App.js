@@ -119,6 +119,7 @@ class App extends Component {
       <div className="container">
         <div class="title">
           <h1>Video Preview and Analysis Service</h1>
+          <p>This example processes only first 30 seconds of the video.<br/>Videos and generated materials will be deleted after some time.</p>
         </div>
         <div className="header">
           <div className="form">
