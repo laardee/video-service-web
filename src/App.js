@@ -79,6 +79,9 @@ class App extends Component {
       })
       .then((data) => {
         if (data.status === 0) {
+          this.setState({
+            status: data.message,
+          });
           setTimeout(() => {
             this._getMetadata(session);
           }, 5000);
