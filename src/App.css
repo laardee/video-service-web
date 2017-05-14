@@ -55,11 +55,20 @@ p {
   background-repeat: no-repeat;
   background-position: center; }
 
+button.label {
+  border: none; }
+
 .label {
   background: white;
   padding: 5px;
   margin: 3px;
   font-size: 0.8em; }
+
+.label.high {
+  font-weight: bold; }
+
+.label.low {
+  color: #888; }
 
 .status > span {
   display: block;
@@ -78,7 +87,7 @@ p {
   position: absolute;
   z-index: -1; }
 
-.file-input + label, .submit-button {
+.file-input + label, .submit-button, button.label {
   text-transform: uppercase;
   padding: 8px;
   font-size: 0.7em;
@@ -101,12 +110,14 @@ p {
   align-items: center;
   color: #333;
   text-decoration: none; }
-  .careers-link span {
-    margin: 5px; }
+
+.careers-link span {
+  margin: 5px; }
 
 #video-container,
 #preview-container {
   min-height: 180px; }
-  #video-container span,
-  #preview-container span {
-    font-size: 12px; }
+
+#video-container span,
+#preview-container span {
+  font-size: 12px; }

@@ -70,11 +70,23 @@ p {
   background-position: center;
 }
 
+button.label {
+  border: none;
+}
+
 .label {
   background: white;
   padding: 5px;
   margin: 3px;
   font-size: 0.8em;
+
+  &.high {
+    font-weight: bold;
+  }
+
+  &.low {
+    color: #888;
+  }
 }
 
 .status > span {
@@ -97,7 +109,7 @@ p {
   z-index: -1;
 }
 
-.file-input + label, .submit-button {
+.file-input + label, .submit-button, button.label {
   text-transform: uppercase;
   padding: 8px;
   font-size: 0.7em;

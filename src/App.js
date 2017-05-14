@@ -3,6 +3,28 @@ import './App.css';
 
 import { endpoint } from './config.json';
 
+const mapClass = (Confidence) => {
+  if (Confidence > 90) {
+    return 'label high';
+  } else if (Confidence > 70) {
+    return 'label normal';
+  }
+  return 'label low';
+};
+
+const mapLabels = labels =>
+  labels
+    .sort((a, b) =>  b.Confidence - a.Confidence)
+    .map(({ Confidence, Name }, index) =>
+      ({ key: `item-${index}`, text: `${Name} [${Confidence}]`, labelClass: mapClass(Confidence) }))
+
+
+const mapKeyFrames = frames =>
+  frames
+    .map((frame, index) =>
+      Object.assign({}, frame, { key: `item-${index}`, text: `frame ${index}`, index }));
+
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -11,9 +33,13 @@ class App extends Component {
       videoUrl: '',
       gifUrl: '',
       labels: [],
+      mergedLabels: [],
       status: 'Select a video',
       session: '',
+      frameLabels: [],
     };
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleSelectFrame = this._handleSelectFrame.bind(this);
   }
 
   _handleSubmit(event) {
@@ -72,6 +98,8 @@ class App extends Component {
             gifUrl: '',
             videoUrl: '',
             labels: [],
+            mergedLabels: [],
+            frameLabels: [],
           });
         }
 
@@ -86,15 +114,13 @@ class App extends Component {
             this._getMetadata(session);
           }, 5000);
         } else if (data.status === 1) {
-          const labels =
-            data.labels
-              .map(({ Confidence, Name }, index) =>
-                ({ key: `item-${index}`, text: `${Name} [${Confidence}]` }));
           this.setState({
             status: data.message,
             gifUrl: data.gifUrl,
             videoUrl: data.videoUrl,
-            labels,
+            mergedLabels: mapLabels(data.labels),
+            labels: mapLabels(data.labels),
+            frameLabels: mapKeyFrames(data.raw),
           });
         }
         return data;
@@ -110,19 +136,36 @@ class App extends Component {
     });
   }
 
+  _handleSelectFrame({ event, time }) {
+    event.preventDefault();
+    let labels = [];
+    let currentTime = 0;
+    if (time === -1) {
+      labels = this.state.mergedLabels;
+    } else {
+      currentTime = time;
+      labels = mapLabels(this.state.frameLabels.filter(frameLabel => frameLabel.time === time)[0].labels);
+    }
+    document.getElementById('videoPlayer').currentTime = currentTime;
+    this.setState({
+      labels,
+    });
+  }
+
   render() {
     const {
       gifUrl,
       videoUrl,
       labels,
       status,
+      frameLabels,
     } = this.state;
 
     return (
       <div className="container">
-        <div class="title">
+        <div className="title">
           <h1>Video Preview and Analysis Service</h1>
-          <p>This example processes only first 30 seconds of the video.<br/>Videos and generated materials will be deleted after some time.</p>
+          <p>This example processes only first 30 seconds of the video.<br/>Videos and generated materials will be deleted eventually.</p>
         </div>
         <div className="header">
           <div className="form">
@@ -140,16 +183,23 @@ class App extends Component {
           <div>
             <div id="video-container">
               <span>Original video</span>
-              <video width="320" height="180" controls src={videoUrl} />
+              <video width="320" height="180" id="videoPlayer" controls src={videoUrl} />
             </div>
             <div id="preview-container">
               <span>GIF preview</span>
               <img alt="" src={gifUrl} />
             </div>
           </div>
-          <div className="labels">
-            {labels.map(({ key, text }) =>
-              (<div key={key} className="label">{text}</div>))}
+          <div>
+            <div className="frame-labels">
+              <button onClick={event => this._handleSelectFrame({ event, time: -1 })} className="label">All labels</button>
+              {frameLabels.map(({ key, time, text }) =>
+                (<button onClick={event => this._handleSelectFrame({ event, time })} key={key} className="label">{text}</button>))}
+            </div>
+            <div className="labels">
+              {labels.map(({ key, text, labelClass }) =>
+                (<div key={key} className={labelClass}>{text}</div>))}
+            </div>
           </div>
         </div>
         <div className="footer">
