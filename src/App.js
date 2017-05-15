@@ -123,6 +123,7 @@ class App extends Component {
             frameLabels: mapKeyFrames(data.labels),
           });
         }
+
         return data;
       });
   }
