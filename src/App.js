@@ -33,7 +33,7 @@ class App extends Component {
       videoUrl: '',
       gifUrl: '',
       labels: [],
-      mergedLabels: [],
+      allLabels: [],
       status: 'Select a video',
       session: '',
       frameLabels: [],
@@ -98,7 +98,7 @@ class App extends Component {
             gifUrl: '',
             videoUrl: '',
             labels: [],
-            mergedLabels: [],
+            allLabels: [],
             frameLabels: [],
           });
         }
@@ -118,9 +118,9 @@ class App extends Component {
             status: data.message,
             gifUrl: data.gifUrl,
             videoUrl: data.videoUrl,
-            mergedLabels: mapLabels(data.labels),
-            labels: mapLabels(data.labels),
-            frameLabels: mapKeyFrames(data.raw),
+            allLabels: mapLabels(data.allLabels),
+            labels: mapLabels(data.allLabels),
+            frameLabels: mapKeyFrames(data.labels),
           });
         }
         return data;
@@ -141,7 +141,7 @@ class App extends Component {
     let labels = [];
     let currentTime = 0;
     if (time === -1) {
-      labels = this.state.mergedLabels;
+      labels = this.state.allLabels;
     } else {
       currentTime = time;
       labels = mapLabels(this.state.frameLabels.filter(frameLabel => frameLabel.time === time)[0].labels);
