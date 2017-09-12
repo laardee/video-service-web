@@ -13,7 +13,7 @@ body {
   margin: 10px; }
 
 .title {
-  margin: 20px; }
+  margin: 4px; }
 
 .title,
 .header,
@@ -63,10 +63,12 @@ button.label {
   padding: 5px;
   margin: 3px;
   font-size: 0.8em; }
-  .label.high {
-    font-weight: bold; }
-  .label.low {
-    color: #888; }
+
+.label.high {
+  font-weight: bold; }
+
+.label.low {
+  color: #888; }
 
 .status > span {
   display: block;
@@ -108,15 +110,17 @@ button.label {
   align-items: center;
   color: #333;
   text-decoration: none; }
-  .careers-link span {
-    margin: 5px; }
+
+.careers-link span {
+  margin: 5px; }
 
 #video-container,
 #preview-container {
   min-height: 180px; }
-  #video-container span,
-  #preview-container span {
-    font-size: 12px; }
+
+#video-container span,
+#preview-container span {
+  font-size: 12px; }
 
 .info {
   font-size: 12px; }
