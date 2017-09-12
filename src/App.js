@@ -130,10 +130,15 @@ class App extends Component {
 
   _handleImageChange(e) {
     e.preventDefault();
-    const file = e.target.files[0];
+    let file = e.target.files[0];
+    let status = `Press submit to upload "${file.name}"`;
+    if (file.size > 52428800) {
+      file = null;
+      status = 'Maximum file size (50Mb) exceeded!';
+    }
     this.setState({
       file,
-      status: `Press submit to upload "${file.name}"`,
+      status,
     });
   }
 
@@ -166,7 +171,7 @@ class App extends Component {
       <div className="container">
         <div className="title">
           <h1>Video Preview and Analysis Service</h1>
-          <p>This example processes only first 30 seconds of the video.<br/>Videos and generated materials will be deleted eventually.</p>
+          <p className="info">This example processes only first 30 seconds of the video.<br/>Videos and generated materials will be deleted eventually.<br/>Maximum source video file size is 50Mb.</p>
         </div>
         <div className="header">
           <div className="form">

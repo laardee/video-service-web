@@ -117,3 +117,6 @@ button.label {
   #video-container span,
   #preview-container span {
     font-size: 12px; }
+
+.info {
+  font-size: 12px; }
