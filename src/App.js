@@ -171,7 +171,7 @@ class App extends Component {
         <div className="header">
           <div className="form">
             <form onSubmit={e => this._handleSubmit(e)}>
-              <input className="file-input" name="file" id="file" type="file" accept="video/*" onChange={e => this._handleImageChange(e)} />
+              <input className="file-input" name="file" id="file" type="file" accept="video/mp4,video/x-m4v,video/*" onChange={e => this._handleImageChange(e)} />
               <label htmlFor="file">Choose a video</label>
               <button className="submit-button" type="submit" onClick={e => this._handleSubmit(e)}>Submit</button>
             </form>
