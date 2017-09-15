@@ -171,7 +171,7 @@ class App extends Component {
       <div className="container">
         <div className="title">
           <h1>Video Preview and Analysis Service</h1>
-          <p className="info">This example processes only first 30 seconds of the video.<br/>Videos and generated materials will be deleted eventually.<br/>Maximum source video file size is 50Mb.</p>
+          <p className="info">This example processes only first 30 seconds of the video.<br/>Videos and generated materials will be deleted eventually.<br/>Maximum source video file size is <b>50Mb</b>.</p>
         </div>
         <div className="header">
           <div className="form">
@@ -210,9 +210,8 @@ class App extends Component {
         </div>
         <div className="footer">
           <div>
-            <a className="careers-link" href="https://sc5.io/careers">
-              <span className="logo" />
-              <span>sc5.io/careers</span></a>
+            <a className="careers-link" href="https://www.nordcloud.com/careers">
+              <span>www.nordcloud.com/careers</span></a>
           </div>
         </div>
       </div>
